@@ -242,8 +242,8 @@ season_grade = (
           .size()
           .reset_index(name='n')
 )
-season_tot = season_grade.groupby('season')['n'].transform('sum')
-season_grade['pct'] = (season_grade['n'] / season_tot * 100).round(2)
+season_grade['pct'] = season_grade.groupby('season')['n'].transform(lambda x: x/x.sum()*100)
+print(season_grade)
 
 # 2) 시각화 
 season_order = ['봄', '여름', '가을', '겨울']
@@ -267,4 +267,4 @@ plt.show()
 # 분석 결과 작성
 
 # 전처리 완료 파일 csv 파일로 저장
-#df_loc.to_csv('201906_output.csv', index=False)
+df_loc.to_csv('201906_output.csv', index=False)
